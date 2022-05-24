@@ -8,19 +8,19 @@ const requestHandler = (req,res) => {
         res.write('<head> <title> Enter Message </title> <head>');
         res.write('<body><form action = "/message" method="POST"> <input type = "text" name="message"> <button type="submit">SEND</button> </input> </form></body>');
         res.write('</html>');
-    return res.end();
+        return res.end();
     }
     
     if (url ==='/message' && method === 'POST'){
         const body = [];
         req.on('data',(chunk) => {
-            console.log(chunk);
+            // console.log(chunk);
             body.push(chunk);
         });
             
         return req.on('end',() => { 
             const parseBody = Buffer.concat(body).toString();
-            // console.log(parseBody);
+            console.log(parseBody);
             const message = parseBody.split('=')[1];
             fs.writeFile('message.txt',message, (err) => {
                 res.statusCode = 302;               //Rediretion code http
@@ -29,6 +29,7 @@ const requestHandler = (req,res) => {
             });
         });
     }
+
     res.setHeader('Content-Type','text/html');
     res.write('<html>');
     res.write('<head> <title> My first page </title> <head>');
