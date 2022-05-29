@@ -1,11 +1,11 @@
 {
   "name": "3.expressjs",
   "version": "1.0.0",
-  "description": "Assignment 2",
-  "main": "Assignment2.js",
+  "description": "app",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon Assignment2.js"
+    "start": "nodemon app.js"
   },
   "author": "DUY ANH",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "nodemon": "^2.0.16"
   },
   "dependencies": {
+    "body-parser": "^1.20.0",
     "express": "^4.18.1"
   }
 }

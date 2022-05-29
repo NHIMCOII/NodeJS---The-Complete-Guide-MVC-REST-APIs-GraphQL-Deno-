@@ -7,6 +7,7 @@ npm install nodemon --save-dev
 change scripi in .json "start": "node"->"nodemon"
 ========Install Express========
 npm install --save express
+npm install --save body-parser
 */
 
 const express = require('express');
@@ -22,5 +23,7 @@ app.use('/',(req,res,next) => {
     console.log('/ middleware');
     res.send('<p>The middleware that handle just /</p>');
 });
+
+
 
 app.listen(3000);
