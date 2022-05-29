@@ -1,4 +1,5 @@
 /* INITIALIZE A NEW PROJECT
+npm install
 npm init
 "start": "node app.js" script in .json file
 npm install nodemon --save-dev
