@@ -9,6 +9,7 @@ change scripi in .json "start": "node"->"nodemon"
 ========Install Express========
 npm install --save express
 npm install --save body-parser
+npm install --save ejs pug express-handlebars // templatting engine install
 */
 
 const express = require('express');
