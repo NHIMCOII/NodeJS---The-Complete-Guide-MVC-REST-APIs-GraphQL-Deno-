@@ -6,9 +6,10 @@ const expressHbs = require('express-handlebars'); //handlebars
 
 const app = express();
 
-app.engine('hbs', expressHbs()); //handlebars
-app.set('view engine','hbs');
+// app.engine('hbs', expressHbs()); //handlebars
+// app.set('view engine','hbs');
 // app.set('view engine','pug');
+app.set('view engine','ejs');
 app.set('views','views');  //path to folder included template
 
 // ================== ROUTES HANDLING =================
