@@ -4,22 +4,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
-// const expressHbs = require('express-handlebars'); //handlebars
 
 const app = express();
-// ================= Template Engine ==================
-// app.engine('hbs', expressHbs()); //handlebars
-// app.set('view engine','hbs');
-// app.set('view engine','pug');
-app.set('view engine','ejs');
-app.set('views','views');  //path to folder included template
 
-// ================== ROUTES HANDLING =================
-const adminRoutes = require('./routes/admin.js');
-const shopRoutes = require('./routes/shop.js');
+app.set('view engine', 'ejs');
+app.set('views', 'views');
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static(path.join(__dirname,'public')));// STATIC FOLDER
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
