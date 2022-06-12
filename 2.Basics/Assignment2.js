@@ -10,6 +10,9 @@ change scripi in .json "start": "node"->"nodemon"
 npm install --save express 
 npm install --save body-parser
 npm install --save ejs || pug express-handlebars // templatting engine install
+========Install Mysql========
+npm install --save mysql2
+
 */
 
 const express = require('express');
