@@ -20,5 +20,6 @@
 ``` 
     git checkout -b [new_branch]
     git push origin [new_branch]
-    git fetch master
+    git branch --set-upstream-to=origin/<local_branch> 
+    git merge master
 ```
