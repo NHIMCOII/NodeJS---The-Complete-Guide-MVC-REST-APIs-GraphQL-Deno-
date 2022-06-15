@@ -20,4 +20,5 @@
 ``` 
     git checkout -b [new_branch]
     git push origin [new_branch]
+    git fetch master
 ```
