@@ -16,3 +16,8 @@
  ``` npm install --save mysql2```
  ## ======== Install Sequelize ========
 ``` npm install --save sequelize```
+
+``` 
+    git checkout -b [new_branch]
+    git push origin [new_branch]
+```
