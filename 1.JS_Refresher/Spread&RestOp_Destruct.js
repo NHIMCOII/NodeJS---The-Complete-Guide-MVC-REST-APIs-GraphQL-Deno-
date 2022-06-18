@@ -29,7 +29,7 @@ const toArray = (...args) => {  //Rest operator
 
 // console.log(toArray(1,2,3,4));
 
-// ============================Destructuring=================
+// ============================Destructuring=================  -> Get certain elements from array or object
 const printName = ({ name, greet }) => {
     console.log(name);
     
@@ -40,5 +40,5 @@ printName(person);
 const {name,age} = person;
 console.log(name,age);
 
-const [hobby1, hobby2] = hobbies;
-console.log(hobby1,hobby2);
+const [hobby1, ,hobby3] = hobbies;
+console.log(hobby1,hobby3);
