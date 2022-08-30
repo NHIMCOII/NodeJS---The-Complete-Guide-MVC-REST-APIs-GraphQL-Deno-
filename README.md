@@ -23,3 +23,18 @@
     git branch --set-upstream-to=origin/<local_branch> 
     git merge master
 ```
+
+
+# ---------------------------------------------------------
+
+## ====================== REST API ==========================
+
+```
+    npm install --save express
+    npm install --save-dev nodemon
+```
+ - Add "start" :"nodemon app.js"
+
+ ```
+    npm install --save body-parser
+ ```
