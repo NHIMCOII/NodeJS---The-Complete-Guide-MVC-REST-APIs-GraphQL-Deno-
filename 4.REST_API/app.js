@@ -1,19 +1,91 @@
-const express = require('express')
-const bodyParser = require('body-parser')
+const path = require("path");
+const { createServer } = require("http");
 
-const feedRoutes = require('./routes/feed')
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const multer = require("multer");
 
-const app = express()
+const feedRoutes = require("./routes/feed");
+const authRoutes = require("./routes/auth");
 
-app.use(bodyParser.json())
+const app = express();
 
-app.use((req,res,next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST,PUT, PATCH, DELETE')
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-    next()
-})
+// =============== UPLOAD FILES & IMAGES HANDLING ===============
+// const fileStorage = multer.diskStorage({
+//     destination: (req,file,cb) => {
+//         cb(null,'images');
+//     },
+//     filename: (req,file,cb) => {
+//         cb(null,new Date().toISOString() + '-' + file.originalname)
+//     }
+// })
+// <For Windows>
+const { v4: uuidv4 } = require("uuid");
 
-app.use('/feed',feedRoutes)
+const fileStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "images");
+  },
+  filename: function (req, file, cb) {
+    cb(null, uuidv4());
+  },
+});
 
-app.listen(8080)
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+// ==============================================================
+
+app.use(bodyParser.json());
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
+);
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use(require('cors')({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] ,
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST,PUT, PATCH, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   next();
+// });
+
+app.use("/feed", feedRoutes);
+app.use("/auth", authRoutes);
+
+// ====================== ERRORS HANDLING =======================
+app.use((error, req, res, next) => {
+  // console.log(error)
+  const status = error.statusCode || 500;
+  const message = error.message;
+  const data = error.data;
+  res.status(status).json({ message: message, data: data });
+});
+// ==============================================================
+mongoose
+  .connect(
+    "mongodb+srv://DuyAnh:Nhimcoi2002@cluster0.lbaw2w3.mongodb.net/messages?retryWrites=true&w=majority"
+  )
+  .then((result) => {
+    const httpServer = createServer(app);
+    const io = require('./socket').init(httpServer)
+    httpServer.listen(8080)
+    io.on("connection", (socket) => {
+      console.log("Client Connected");
+    });
+    console.log("============ Connected ==========");
+  })
+  .catch((err) => console.log(err));

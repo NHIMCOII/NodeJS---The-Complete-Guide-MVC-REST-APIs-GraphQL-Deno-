@@ -37,4 +37,12 @@
 
  ```
     npm install --save body-parser
+    npm install --save express-validator
+    npm install --save mongoose
+    npm install --save multer
+    npm install --save uuid <for Windows>
+    npm install --save bcryptjs
+    npm install --save jsonwebtoken
+    npm install --save nodemailer
+    npm install --save socket.io
  ```
